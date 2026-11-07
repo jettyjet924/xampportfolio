@@ -1,0 +1,456 @@
+/* --- Global Resets & Typography --- */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  background-color: #030407; /* Deep cosmic space black */
+  color: #c5c6c7; 
+  line-height: 1.6;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  padding: 3rem 1rem;
+  position: relative;
+  overflow-x: hidden; 
+}
+
+/* --- Moving Galaxy Nebula Clouds --- */
+body::before,
+body::after {
+  content: "";
+  position: fixed;
+  border-radius: 50%;
+  z-index: -2;          /* Sits below cards AND stars */
+  pointer-events: none; 
+  display: block;       
+  mix-blend-mode: screen; 
+}
+
+/* Cosmic Violet & Cosmic Blue Nebula Cluster */
+body::before {
+  width: 600px;
+  height: 600px;
+  top: -100px;
+  left: -50px;
+  background: radial-gradient(circle, rgba(130, 88, 255, 0.45) 0%, rgba(0, 210, 255, 0.2) 45%, rgba(0, 0, 0, 0) 70%);
+  filter: blur(100px);
+  animation: galaxyDriftOne 30s ease-in-out infinite alternate;
+}
+
+/* Deep Magenta & Amber Supernova Remnant */
+body::after {
+  width: 750px;
+  height: 750px;
+  bottom: -150px;
+  right: -100px;
+  background: radial-gradient(circle, rgba(255, 62, 165, 0.35) 0%, rgba(255, 159, 67, 0.15) 50%, rgba(0, 0, 0, 0) 75%);
+  filter: blur(120px);
+  animation: galaxyDriftTwo 35s ease-in-out infinite alternate;
+}
+
+/* --- Cosmic Starfield Layer --- */
+.starfield {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1; /* Layered right between the nebula clouds and your foreground cards */
+  pointer-events: none;
+  /* Generates dozens of tiny crisp multi-positioned white star pixels using smart box-shadow strings */
+  background: transparent;
+  box-shadow: 
+    120px 200px #fff, 450px 80px #fff, 850px 340px #fff, 230px 540px rgba(255,255,255,0.5),
+    1050px 120px #fff, 1350px 480px #fff, 70px 720px #fff, 640px 610px rgba(255,255,255,0.3),
+    920px 800px #fff, 1500px 150px #fff, 310px 890px #fff, 1200px 750px rgba(255,255,255,0.6),
+    500px 300px #fff, 150px 400px #fff, 780px 190px #fff, 1100px 580px #fff,
+    950px 450px #fff, 400px 750px rgba(255,255,255,0.4), 1300px 280px #fff, 250px 150px #fff;
+  animation: starTwinkle 6s ease-in-out infinite alternate;
+}
+
+/* --- Space Animations --- */
+@keyframes galaxyDriftOne {
+  0% { transform: translate(0px, 0px) scale(1) rotate(0deg); }
+  50% { transform: translate(150px, 100px) scale(1.2) rotate(60deg); }
+  100% { transform: translate(-50px, 200px) scale(0.9) rotate(120deg); }
+}
+
+@keyframes galaxyDriftTwo {
+  0% { transform: translate(0px, 0px) scale(1.1) rotate(0deg); }
+  50% { transform: translate(-120px, -150px) scale(0.85) rotate(-60deg); }
+  100% { transform: translate(100px, -50px) scale(1.1) rotate(-120deg); }
+}
+
+@keyframes starTwinkle {
+  0%, 100% { opacity: 0.4; transform: scale(0.98); }
+  50% { opacity: 1; transform: scale(1); }
+}
+
+/* Hide horizontal rules completely */
+hr {
+  display: none;
+}
+
+/* --- Navigation & Header --- */
+header {
+  width: 100%;
+  max-width: 680px;
+  text-align: center;
+  margin-bottom: 2rem;
+  z-index: 1;
+}
+
+header h1 {
+  color: #ffffff;
+  font-size: 2.4rem;
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  margin-bottom: 1rem;
+  text-shadow: 0 0 20px rgba(130, 88, 255, 0.3); /* Adds a faint cosmic heading glow */
+}
+
+nav {
+  background: rgba(13, 15, 22, 0.65); /* Translucent space capsule white */
+  backdrop-filter: blur(16px); 
+  -webkit-backdrop-filter: blur(16px);
+  padding: 0.6rem 1rem;
+  border-radius: 30px; 
+  font-size: 0.9rem;
+  display: inline-flex;
+  gap: 0.5rem;
+  align-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.04); 
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+nav a {
+  color: #9499a6;
+  text-decoration: none;
+  font-weight: 500;
+  padding: 0.4rem 1rem;
+  border-radius: 20px;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+nav a:hover {
+  color: #00d2ff; /* Galaxy cyan highlight */
+  background: rgba(0, 210, 255, 0.1);
+}
+
+nav a.active {
+  color: #ffffff;
+  background: rgba(130, 88, 255, 0.25);
+  border: 1px solid rgba(130, 88, 255, 0.3);
+}
+
+/* --- Main Card Layout --- */
+main {
+  background: rgba(13, 15, 22, 0.75); /* Deep translucent card base */
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  width: 100%;
+  max-width: 680px;
+  padding: 3rem;
+  border-radius: 24px; 
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+  margin-bottom: 2rem;
+  z-index: 1;
+}
+
+main h2 {
+  color: #ffffff;
+  font-size: 1.6rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  padding-bottom: 0.6rem;
+  margin-top: 2rem;
+  margin-bottom: 1.2rem;
+}
+
+main h2:first-of-type {
+  margin-top: 0;
+}
+
+main p {
+  color: #a2a8b5; 
+  margin-bottom: 1.2rem;
+  font-size: 1.025rem;
+}
+
+/* --- Lists (Skills & Education Tags) --- */
+ul {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-bottom: 2rem;
+}
+
+ul li {
+  background: rgba(30, 35, 50, 0.5); 
+  color: #00d2ff; /* Crisp electric cyan typography */
+  border: 1px solid rgba(0, 210, 255, 0.15);
+  padding: 0.5rem 1rem;
+  border-radius: 12px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+ul li:hover {
+  transform: translateY(-2px);
+  border-color: rgba(0, 210, 255, 0.5);
+  box-shadow: 0 0 12px rgba(0, 210, 255, 0.2);
+}
+
+/* --- Special Layout Override for Education Blocks --- */
+ul.education-list {
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+ul.education-list li {
+  background: rgba(255, 255, 255, 0.01);
+  color: #c5c6c7;
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  display: block;
+  width: 100%;
+}
+
+ul.education-list li:first-child {
+  font-weight: 700;
+  color: #ffffff;
+  border-color: rgba(130, 88, 255, 0.3);
+}
+
+/* --- Profile Section Layout --- */
+.profile-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  margin-top: 1rem;
+}
+
+.profile-aside {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  flex-shrink: 0;
+}
+
+.avatar-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.profile {
+  display: block;
+  width: 140px;
+  height: 140px;
+  object-fit: cover;
+  border-radius: 24px; 
+  background: #151821;
+  border: 1px solid rgba(130, 88, 255, 0.4); /* Cosmic Violet frame ring */
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.avatar-wrapper:hover .profile {
+  transform: translateY(-4px) rotate(2deg);
+  border-color: #00d2ff;
+}
+
+/* Pulsing Active Status Indicator Beacon */
+.status-dot {
+  position: absolute;
+  bottom: -4px;
+  right: -4px;
+  width: 16px;
+  height: 16px;
+  background-color: #00ff88; /* Electric bright cosmic green */
+  border: 3px solid #0d0f16;
+  border-radius: 50%;
+  box-shadow: 0 0 0 rgba(0, 255, 136, 0.4);
+  animation: pulseBadgeBeacon 2s infinite;
+}
+
+@keyframes pulseBadgeBeacon {
+  0% { box-shadow: 0 0 0 0 rgba(0, 255, 136, 0.7); }
+  70% { box-shadow: 0 0 0 10px rgba(0, 255, 136, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(0, 255, 136, 0); }
+}
+
+.profile-text {
+  flex: 1;
+}
+
+/* --- Projects Showcase Grid Layout --- */
+.projects-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  margin-top: 1.5rem;
+}
+
+.project-card {
+  background: rgba(21, 24, 33, 0.6); 
+  border: 1px solid rgba(255, 255, 255, 0.02);
+  padding: 1.5rem;
+  border-radius: 16px;
+  overflow: hidden; 
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.project-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(0, 210, 255, 0.2);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4);
+}
+
+.project-image {
+  width: 100%;
+  height: 200px;
+  object-fit: cover; 
+  object-position: top; 
+  border-radius: 10px;
+  margin-bottom: 1.2rem;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  transition: transform 0.4s ease;
+}
+
+.project-card:hover .project-image {
+  transform: scale(1.02);
+}
+
+main h3 {
+  color: #ffffff;
+  margin-top: 0;
+  margin-bottom: 0.4rem;
+  font-size: 1.2rem;
+  font-weight: 600;
+  transition: color 0.2s;
+}
+
+.project-card:hover h3 {
+  color: #00d2ff;
+}
+
+/* --- Contact Page Form Elements --- */
+form {
+  margin-top: 1.5rem;
+}
+
+form label {
+  display: block;
+  font-weight: 600;
+  color: #ffffff;
+  font-size: 0.88rem;
+  margin-bottom: 0.4rem;
+}
+
+input[type="text"],
+input[type="email"],
+textarea {
+  width: 100%;
+  padding: 0.85rem 1rem;
+  background: #151821;
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  font-family: inherit;
+  font-size: 0.95rem;
+  transition: all 0.25s ease;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+textarea:focus {
+  outline: none;
+  border-color: #00d2ff;
+  box-shadow: 0 0 0 4px rgba(0, 210, 255, 0.15);
+  background: #191d29;
+}
+
+input[type="submit"] {
+  background-color: #120c0a; /* Dark sleek submission block button override */
+  background: linear-gradient(135deg, #8258ff 0%, #ff3ea5 100%);
+  color: #ffffff;
+  border: none;
+  padding: 0.9rem 2rem;
+  font-size: 1rem;
+  font-weight: 700;
+  border-radius: 12px;
+  cursor: pointer;
+  width: 100%;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 15px rgba(130, 88, 255, 0.3);
+}
+
+input[type="submit"]:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 22px rgba(130, 88, 255, 0.5);
+  filter: brightness(1.1);
+}
+
+/* --- Footer --- */
+footer {
+  text-align: center;
+  color: #5b6170;
+  font-size: 0.85rem;
+  margin-top: auto;
+  z-index: 1;
+}
+
+/* --- Responsive Viewport Breakpoints --- */
+@media (min-width: 540px) {
+  .profile-container {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+  
+  .profile-aside {
+    position: sticky;
+    top: 2rem;
+  }
+  
+  .profile {
+    width: 150px;
+    height: 150px;
+  }
+}
+
+:root[data-theme="light"] {
+    --bg: #ffffff;
+    --text: #222;
+    --card: #f5f5f5;
+    --btn-bg: #222;
+    --btn-text: #ffffff;
+}
+:root[data-theme="dark"] {
+    --bg: #121212;
+    --text: #e0e0e0;
+    --card: #1e1e1e;
+    --btn-bg: #e0e0e0;
+    --btn-text: #121212;
+}
+body {
+    background: var(--bg);
+    color: var(--text);
+    transition: background 0.3s ease, color 0.3s ease;
+}
+.theme-card {
+    background: var(--card);
+    padding: 15px;
+    border-radius: 10px;
+}
+
